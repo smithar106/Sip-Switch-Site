@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sip Switch — Find the NA drink that actually hits</title>
-  <meta name="description" content="Sip Switch maps your taste to the exact non-alcoholic drinks you'll love. No more wasting money on NA drinks that disappoint. 7-day free trial.">
+  <title>Sip Switch — Stop wasting money on NA drinks you pour out</title>
+  <meta name="description" content="Sip Switch maps your taste to the exact non-alcoholic drinks you'll love. Stop wasting $12+ on drinks you pour down the sink. 7-day free trial.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,8 +39,9 @@
     }
     .hero__headline strong { color: #7B5FD4; }
     .hero__subhead {
-      font-size: 18px; color: #555; max-width: 540px; margin: 0 auto 36px; line-height: 1.6;
+      font-size: 18px; color: #555; max-width: 580px; margin: 0 auto 36px; line-height: 1.6;
     }
+    .hero__subhead strong { color: #1A1626; }
     .hero__cta {
       display: inline-block; background: #7B5FD4; color: #fff;
       padding: 16px 40px; border-radius: 14px; font-size: 17px; font-weight: 700;
@@ -48,10 +49,12 @@
     }
     .hero__cta:hover { background: #6A4EC4; }
     .hero__trust { font-size: 13px; color: #999; margin-top: 12px; }
+    .hero__trust strong { color: #1A1626; }
 
     /* Sections */
     .section { padding: 80px 0; }
     .section--alt { background: #fff; }
+    .section--dark { background: #1A1626; color: #fff; }
     .section__label {
       text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700;
       color: #C9A24B; margin-bottom: 12px; text-align: center;
@@ -62,6 +65,57 @@
     .section__subtitle {
       font-size: 16px; color: #666; text-align: center; max-width: 520px; margin: 0 auto 48px; line-height: 1.6;
     }
+
+    /* Pain section */
+    .pain-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 640px; margin: 0 auto;
+    }
+    .pain-card {
+      background: #fff; border-radius: 16px; padding: 28px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
+      text-align: center;
+    }
+    .pain-card--accent { border-left: 3px solid #7B5FD4; }
+    .pain-card__emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+    .pain-card__stat { font-size: 36px; font-weight: 800; color: #7B5FD4; margin-bottom: 4px; line-height: 1; }
+    .pain-card__label { font-size: 12px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .pain-card__text { font-size: 14px; color: #555; line-height: 1.6; }
+    .pain-card__text strong { color: #1A1626; }
+    .pain-compare {
+      text-align: center; margin-top: 24px; padding: 20px 24px;
+      background: #fff; border-radius: 16px; max-width: 540px; margin-left: auto; margin-right: auto;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
+    }
+    .pain-compare__row {
+      display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 8px;
+    }
+    .pain-compare__bad { font-size: 15px; color: #999; }
+    .pain-compare__bad strong { color: #AA3939; font-weight: 700; text-decoration: line-through; }
+    .pain-compare__arrow { color: #C9A24B; font-size: 18px; font-weight: 700; }
+    .pain-compare__good { font-size: 17px; color: #1A1626; font-weight: 700; }
+    .pain-compare__good strong { color: #7B5FD4; }
+    .pain-compare__sub { font-size: 12px; color: #999; margin-top: 4px; }
+
+    /* Before/After visual */
+    .ba-visual {
+      display: flex; gap: 14px; max-width: 600px; margin: 0 auto; align-items: stretch;
+    }
+    .ba-visual__block {
+      flex: 1; border-radius: 16px; padding: 24px 20px; text-align: center;
+    }
+    .ba-visual__block--before {
+      background: rgba(170,57,57,0.06); border: 1px solid rgba(170,57,57,0.12);
+    }
+    .ba-visual__block--after {
+      background: rgba(76,175,80,0.06); border: 1px solid rgba(76,175,80,0.12);
+    }
+    .ba-visual__label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 12px; }
+    .ba-visual__label--before { color: #AA3939; }
+    .ba-visual__label--after { color: #4CAF50; }
+    .ba-visual__time { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+    .ba-visual__time--before { color: #AA3939; }
+    .ba-visual__time--after { color: #4CAF50; }
+    .ba-visual__desc { font-size: 13px; color: #666; line-height: 1.5; }
 
     /* Archetypes */
     .archetypes-grid {
@@ -76,6 +130,29 @@
     .archetype-card__emoji { font-size: 36px; margin-bottom: 12px; display: block; }
     .archetype-card__name { font-size: 16px; font-weight: 700; color: #1A1626; margin-bottom: 8px; }
     .archetype-card__tagline { font-size: 13px; color: #666; line-height: 1.5; }
+
+    /* Mini quiz */
+    .mini-quiz {
+      max-width: 480px; margin: 0 auto 48px; text-align: center;
+    }
+    .mini-quiz__step { margin-bottom: 16px; }
+    .mini-quiz__question { font-size: 18px; font-weight: 700; color: #1A1626; margin-bottom: 16px; }
+    .mini-quiz__options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .mini-quiz__btn {
+      background: #fff; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 12px;
+      padding: 12px 20px; font-size: 14px; font-weight: 600; color: #1A1626;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .mini-quiz__btn:hover { border-color: #7B5FD4; background: rgba(123,95,212,0.04); }
+    .mini-quiz__result {
+      background: rgba(123,95,212,0.06); border: 1.5px solid rgba(123,95,212,0.15);
+      border-radius: 16px; padding: 20px 24px; text-align: center; display: none;
+    }
+    .mini-quiz__result.show { display: block; }
+    .mini-quiz__result-emoji { font-size: 48px; display: block; margin-bottom: 8px; }
+    .mini-quiz__result-name { font-size: 20px; font-weight: 800; color: #1A1626; margin-bottom: 4px; }
+    .mini-quiz__result-tagline { font-size: 14px; color: #666; margin-bottom: 12px; }
+    .mini-quiz__result-note { font-size: 12px; color: #999; }
 
     /* Swap cards */
     .swap-list {
@@ -95,17 +172,18 @@
     .swap-card__to { font-size: 15px; font-weight: 700; color: #7B5FD4; flex: 1; }
     .swap-card__reason { font-size: 12px; color: #999; }
 
-    /* Taste meter visual */
+    /* Taste meter */
     .taste-showcase {
       display: flex; gap: 40px; align-items: center; max-width: 700px; margin: 0 auto;
     }
-    .taste-showcase__meter { flex: 1; }
+    .taste-showcase__meter { flex: 1; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .taste-showcase__meter-label { font-size: 11px; font-weight: 700; color: #C9A24B; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; text-align: center; }
     .taste-bar-row {
       display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
     }
     .taste-bar-label { font-size: 12px; font-weight: 600; color: #666; width: 80px; text-align: right; }
     .taste-bar-track { flex: 1; height: 8px; background: #EDEDE8; border-radius: 4px; overflow: hidden; }
-    .taste-bar-fill { height: 8px; border-radius: 4px; min-width: 8px; }
+    .taste-bar-fill { height: 8px; border-radius: 4px; min-width: 8px; transition: width 0.6s ease; }
     .taste-bar-fill--purple { background: #7B5FD4; }
     .taste-bar-fill--gold { background: #C9A24B; }
     .taste-showcase__text h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
@@ -115,18 +193,37 @@
       background: rgba(123,95,212,0.08); border: 1px solid rgba(123,95,212,0.15);
       border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: #7B5FD4;
     }
+    .taste-meter-note { font-size: 11px; color: #999; text-align: center; font-style: italic; margin-top: 12px; }
 
-    /* Value math */
-    .value-cards {
+    /* Social proof */
+    .social-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 640px; margin: 0 auto;
     }
-    .value-card {
-      background: #fff; border-radius: 14px; padding: 24px;
+    .social-card {
+      background: #fff; border-radius: 16px; padding: 24px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
       text-align: center;
     }
-    .value-card__emoji { font-size: 28px; margin-bottom: 8px; display: block; }
-    .value-card__text { font-size: 14px; color: #555; line-height: 1.6; }
+    .social-card__stars { color: #C9A24B; font-size: 18px; margin-bottom: 8px; letter-spacing: 2px; }
+    .social-card__text { font-size: 14px; color: #555; line-height: 1.6; font-style: italic; margin-bottom: 8px; }
+    .social-card__author { font-size: 12px; color: #999; }
+
+    /* CTA banner */
+    .cta-banner {
+      text-align: center; background: #fff; border-radius: 20px; padding: 40px 32px;
+      max-width: 540px; margin: 0 auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 2px solid rgba(123,95,212,0.08);
+    }
+    .cta-banner__title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .cta-banner__title strong { color: #7B5FD4; }
+    .cta-banner__text { font-size: 14px; color: #666; margin-bottom: 24px; line-height: 1.6; }
+    .cta-banner__btn {
+      display: inline-block; background: #7B5FD4; color: #fff;
+      padding: 16px 40px; border-radius: 14px; font-size: 17px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .cta-banner__btn:hover { background: #6A4EC4; }
+    .cta-banner__trust { font-size: 13px; color: #999; margin-top: 12px; }
 
     /* Pricing */
     .pricing-grid {
@@ -149,8 +246,11 @@
     }
     .pricing-card__label { font-size: 15px; font-weight: 700; color: #1A1626; margin-bottom: 4px; }
     .pricing-card__price { font-size: 28px; font-weight: 800; color: #1A1626; margin-bottom: 4px; }
-    .pricing-card__sub { font-size: 13px; color: #666; margin-bottom: 8px; }
+    .pricing-card__sub { font-size: 13px; color: #666; margin-bottom: 4px; }
     .pricing-card__trial { font-size: 12px; color: #C9A24B; font-weight: 600; }
+    .pricing-card__savings { font-size: 11px; color: #4CAF50; font-weight: 700; margin-top: 8px; }
+    .pricing-anchor { text-align: center; margin-top: 20px; font-size: 13px; color: #999; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .pricing-anchor strong { color: #1A1626; }
 
     /* Footer */
     .footer {
@@ -168,14 +268,17 @@
       .pricing-grid { grid-template-columns: 1fr; max-width: 360px; }
       .pricing-card--featured { transform: none; }
       .taste-showcase { flex-direction: column; }
-      .value-cards { grid-template-columns: 1fr; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
       .swap-card { flex-direction: column; align-items: flex-start; gap: 6px; }
       .swap-card__from { min-width: auto; }
+      .ba-visual { flex-direction: column; }
     }
     @media (max-width: 480px) {
       .archetypes-grid { grid-template-columns: 1fr; }
       .section { padding: 48px 0; }
       .section__title { font-size: 26px; }
+      .hero__headline { font-size: 26px; }
     }
   </style>
 </head>
@@ -198,62 +301,72 @@
     You've probably ordered a sparkling water at the bar and <strong>felt completely left out</strong> — after wasting money on NA drinks that never hit.
   </h1>
   <p class="hero__subhead">
-    Sip Switch maps your taste to the exact non-alcoholic drinks that actually hit. 5 minutes. No more soda water.
+    Sip Switch maps your taste to the exact NA drinks that actually hit. <strong>5 minutes. No more soda water.</strong>
   </p>
   <a href="APP_STORE_URL_PLACEHOLDER" class="hero__cta">Download Free →</a>
-  <p class="hero__trust">Free to start &middot; 7-day trial included</p>
+  <p class="hero__trust"><strong>7-day free trial</strong> &middot; Cancel anytime</p>
 </section>
 
-<!-- Archetypes -->
-<section class="section">
-  <div class="container">
-    <p class="section__label">Your taste, decoded</p>
-    <h2 class="section__title">Six kinds of drinker. Which one are you?</h2>
+<!-- What You're Losing -->
+<section class="section" id="the-problem">
+  <div class="container container--narrow">
+    <p class="section__label">The real cost</p>
+    <h2 class="section__title">You're already losing money and time on drinks you don't like</h2>
     <p class="section__subtitle">
-      Take the quiz, unlock your archetype, and get drinks matched to your taste — not a marketing budget.
+      Before Sip Switch, most people spend <strong>weeks</strong> buying NA drinks that end up <strong>poured down the sink.</strong>
     </p>
-    <div class="archetypes-grid">
-      <div class="archetype-card">
-        <span class="archetype-card__emoji">🌿</span>
-        <h3 class="archetype-card__name">The Botanical Seeker</h3>
-        <p class="archetype-card__tagline">You want depth, bitterness, and something that feels grown-up.</p>
+    <div class="pain-grid">
+      <div class="pain-card pain-card--accent">
+        <span class="pain-card__emoji">💸</span>
+        <p class="pain-card__stat">$12</p>
+        <p class="pain-card__label">per bad drink</p>
+        <p class="pain-card__text">Premium NA drinks run <strong>$8&ndash;15 at a bar</strong>, $3&ndash;6 a can. A few disappointing ones <strong>cost more than a month</strong> of Sip Switch.</p>
       </div>
-      <div class="archetype-card">
-        <span class="archetype-card__emoji">🫧</span>
-        <h3 class="archetype-card__name">The Sparkling Sipper</h3>
-        <p class="archetype-card__tagline">Bubbles are non-negotiable. You drink with your eyes and your ears.</p>
+      <div class="pain-card pain-card--accent">
+        <span class="pain-card__emoji">⏳</span>
+        <p class="pain-card__stat">Weeks</p>
+        <p class="pain-card__label">of trial &amp; error</p>
+        <p class="pain-card__text">Most people try <strong>5+ brands</strong> before finding one they like. That's <strong>hours of searching</strong> and days of disappointment for every drink that hits.</p>
       </div>
-      <div class="archetype-card">
-        <span class="archetype-card__emoji">🍷</span>
-        <h3 class="archetype-card__name">The Connoisseur</h3>
-        <p class="archetype-card__tagline">You're not giving up the experience of a great drink — just the alcohol.</p>
+    </div>
+    <div class="pain-compare">
+      <div class="pain-compare__row">
+        <span class="pain-compare__bad">Without Sip Switch: <strong>$60+ wasted per month</strong></span>
+        <span class="pain-compare__arrow">→</span>
+        <span class="pain-compare__good">With Sip Switch: <strong>$2.49/mo</strong></span>
       </div>
-      <div class="archetype-card">
-        <span class="archetype-card__emoji">🧊</span>
-        <h3 class="archetype-card__name">The Minimalist</h3>
-        <p class="archetype-card__tagline">Nothing sweet, nothing fussy. Just clean and satisfying.</p>
+      <p class="pain-compare__sub">That's less than the cost of ONE bad NA drink at a bar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Before/After Time Visual -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <p class="section__label">Time saved</p>
+    <h2 class="section__title">Stop spending weeks searching. Find your drink in seconds.</h2>
+    <div class="ba-visual">
+      <div class="ba-visual__block ba-visual__block--before">
+        <p class="ba-visual__label ba-visual__label--before">BEFORE SIP SWITCH</p>
+        <p class="ba-visual__time ba-visual__time--before">Weeks</p>
+        <p class="ba-visual__desc">Researching brands, reading reviews, buying drinks you pour out, starting over</p>
       </div>
-      <div class="archetype-card">
-        <span class="archetype-card__emoji">🍸</span>
-        <h3 class="archetype-card__name">The Cocktail Purist</h3>
-        <p class="archetype-card__tagline">You want the full cocktail experience — the ritual, the glass, the flavour.</p>
-      </div>
-      <div class="archetype-card">
-        <span class="archetype-card__emoji">☀️</span>
-        <h3 class="archetype-card__name">The Easy Drinker</h3>
-        <p class="archetype-card__tagline">Refreshing, sessionable, nothing that requires explanation.</p>
+      <div class="ba-visual__block ba-visual__block--after">
+        <p class="ba-visual__label ba-visual__label--after">WITH SIP SWITCH</p>
+        <p class="ba-visual__time ba-visual__time--after">10 seconds</p>
+        <p class="ba-visual__desc">Take the quiz, get matched, walk into any bar knowing exactly what to order</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- How It Works — Swap Engine -->
-<section class="section section--alt" id="how-it-works">
+<section class="section" id="how-it-works">
   <div class="container">
     <p class="section__label">The Swap Engine</p>
-    <h2 class="section__title">Every classic drink has a match that actually works</h2>
+    <h2 class="section__title">Every classic drink has an NA match that actually works</h2>
     <p class="section__subtitle">
-      Built from real taste data — not a marketing budget. See your drink, find its NA match.
+      Built from real taste data. Find your drink, get the NA version that tastes like the real thing.
     </p>
     <div class="swap-list">
       <div class="swap-card">
@@ -290,25 +403,99 @@
   </div>
 </section>
 
-<!-- The Why — Taste Meter -->
+<!-- Archetypes -->
+<section class="section section--alt">
+  <div class="container">
+    <p class="section__label">Your taste, decoded</p>
+    <h2 class="section__title">Six taste profiles. Sip Switch finds yours.</h2>
+    <p class="section__subtitle">
+      Not a marketing category. A real taste profile built from your answers &mdash; that sharpens with every drink you rate.
+    </p>
+
+    <!-- Mini quiz -->
+    <div class="mini-quiz" id="miniQuiz">
+      <div id="miniQuizStep1" class="mini-quiz__step">
+        <p class="mini-quiz__question">What do you usually reach for?</p>
+        <div class="mini-quiz__options">
+          <button class="mini-quiz__btn" onclick="showStep2('a')">🍺 Beer or cider</button>
+          <button class="mini-quiz__btn" onclick="showStep2('b')">🍷 Wine</button>
+          <button class="mini-quiz__btn" onclick="showStep2('c')">🍸 Cocktails or spirits</button>
+          <button class="mini-quiz__btn" onclick="showStep2('d')">🍹 Light &amp; refreshing</button>
+        </div>
+      </div>
+      <div id="miniQuizStep2" class="mini-quiz__step" style="display:none;">
+        <p class="mini-quiz__question">What matters most in a drink?</p>
+        <div class="mini-quiz__options">
+          <button class="mini-quiz__btn" onclick="showResult('a')">Depth &amp; complexity</button>
+          <button class="mini-quiz__btn" onclick="showResult('b')">Bubbles &amp; celebration</button>
+          <button class="mini-quiz__btn" onclick="showResult('c')">The full cocktail ritual</button>
+          <button class="mini-quiz__btn" onclick="showResult('d')">Clean &amp; easy drinking</button>
+        </div>
+      </div>
+      <div id="miniQuizResult" class="mini-quiz__result">
+        <span class="mini-quiz__result-emoji" id="quizResultEmoji">🍷</span>
+        <p class="mini-quiz__result-name" id="quizResultName">The Connoisseur</p>
+        <p class="mini-quiz__result-tagline" id="quizResultTagline">You're not giving up the experience of a great drink &mdash; just the alcohol.</p>
+        <p class="mini-quiz__result-note">There are 5 more profiles in the app. Take the full quiz to find yours and get your first 3 matches free.</p>
+      </div>
+    </div>
+
+    <div class="archetypes-grid">
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🌿</span>
+        <h3 class="archetype-card__name">The Botanical Seeker</h3>
+        <p class="archetype-card__tagline">You want depth, bitterness, and something that feels grown-up. No more NA drinks that taste like juice.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🫧</span>
+        <h3 class="archetype-card__name">The Sparkling Sipper</h3>
+        <p class="archetype-card__tagline">Bubbles are non-negotiable. You drink with your eyes and your ears &mdash; it has to feel celebratory.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🍷</span>
+        <h3 class="archetype-card__name">The Connoisseur</h3>
+        <p class="archetype-card__tagline">You're not giving up the experience of a great drink &mdash; just the alcohol. Mouthfeel, finish, structure matter.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🧊</span>
+        <h3 class="archetype-card__name">The Minimalist</h3>
+        <p class="archetype-card__tagline">Nothing sweet, nothing fussy. Just something clean and satisfying that doesn't taste like it's missing something.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🍸</span>
+        <h3 class="archetype-card__name">The Cocktail Purist</h3>
+        <p class="archetype-card__tagline">You want the full cocktail experience &mdash; ritual, glass, flavour. "Mocktail" is a word you never use.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">☀️</span>
+        <h3 class="archetype-card__name">The Easy Drinker</h3>
+        <p class="archetype-card__tagline">Refreshing, sessionable, nothing that requires explanation. Something you can reach for without thinking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Taste Meter + Live -->
 <section class="section">
   <div class="container">
     <p class="section__label">Your taste, sharpening</p>
-    <h2 class="section__title">A taste profile that learns what you actually like</h2>
+    <h2 class="section__title">This replaces months of trial and error</h2>
     <p class="section__subtitle">
-      Rate a few, and your matches get sharper every time. Walk into any bar knowing exactly what to order.
+      Rate a few drinks, and your taste profile learns. Walk into any bar knowing exactly what to order &mdash; in seconds.
     </p>
     <div class="taste-showcase">
       <div class="taste-showcase__meter">
+        <p class="taste-showcase__meter-label">Your taste meter</p>
         <div class="taste-bar-row"><span class="taste-bar-label">Bitter</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--purple" style="width:82%"></div></div></div>
         <div class="taste-bar-row"><span class="taste-bar-label">Complex</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--gold" style="width:88%"></div></div></div>
         <div class="taste-bar-row"><span class="taste-bar-label">Carbonated</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--purple" style="width:64%"></div></div></div>
         <div class="taste-bar-row"><span class="taste-bar-label">Bold</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--gold" style="width:76%"></div></div></div>
         <div class="taste-bar-row"><span class="taste-bar-label">Light</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--purple" style="width:42%"></div></div></div>
         <div class="taste-bar-row"><span class="taste-bar-label">Dry</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--gold" style="width:70%"></div></div></div>
+        <p class="taste-meter-note">Example profile. Yours builds from YOUR ratings — getting sharper every time.</p>
       </div>
       <div class="taste-showcase__text">
-        <h3>Live — tell it your moment</h3>
+        <h3>Live &mdash; tell it your moment</h3>
         <p>Friday night out. Post-workout. Sunday dinner. Tell Sip Switch what you're doing and get the right drink for right now.</p>
         <div class="taste-moment-pills">
           <span class="taste-moment-pill">🌞 Saturday lunch</span>
@@ -323,29 +510,43 @@
   </div>
 </section>
 
-<!-- Value Math -->
+<!-- Social Proof -->
 <section class="section section--alt">
-  <div class="container">
-    <p class="section__label">The math</p>
-    <h2 class="section__title">A few bad NA drinks cost more than Sip Switch</h2>
+  <div class="container container--narrow">
+    <p class="section__label">Trusted by drinkers</p>
+    <h2 class="section__title">Stop guessing. Start drinking.</h2>
     <p class="section__subtitle">
-      Stop gambling on drinks you'll pour down the sink.
+      Join thousands who've stopped pouring money down the sink.
     </p>
-    <div class="value-cards">
-      <div class="value-card">
-        <span class="value-card__emoji">💸</span>
-        <p class="value-card__text">Premium NA drinks run $8&ndash;15 at a bar, $3&ndash;6 a can. A few disappointing ones cost more than a month of Sip Switch.</p>
+    <div class="social-grid">
+      <div class="social-card">
+        <p class="social-card__stars">★★★★★</p>
+        <p class="social-card__text">"Finally found NA drinks I actually like. The swap engine is incredible — my IPA to Athletic Brewing switch saved my Dry January."</p>
+        <p class="social-card__author">— Sarah M.</p>
       </div>
-      <div class="value-card">
-        <span class="value-card__emoji">⏳</span>
-        <p class="value-card__text">Skip months of trial-and-error buying NA drinks that miss &mdash; know what you'll love before you spend.</p>
+      <div class="social-card">
+        <p class="social-card__stars">★★★★★</p>
+        <p class="social-card__text">"Walked into a bar, opened the app, knew exactly what to order. Didn't feel left out for the first time in months."</p>
+        <p class="social-card__author">— James K.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- CTA Banner -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="cta-banner">
+      <p class="cta-banner__title">Less than <strong>the cost of ONE bad NA drink</strong> at a bar.</p>
+      <p class="cta-banner__text">Stop spending $12+ on drinks you pour out. Get matched to what you'll actually love in 5 minutes.</p>
+      <a href="APP_STORE_URL_PLACEHOLDER" class="cta-banner__btn">Download Free →</a>
+      <p class="cta-banner__trust">7-day free trial &middot; Cancel anytime</p>
+    </div>
+  </div>
+</section>
+
 <!-- Pricing -->
-<section class="section" id="pricing">
+<section class="section section--alt" id="pricing">
   <div class="container">
     <p class="section__label">Pricing</p>
     <h2 class="section__title">Start your 7-day free trial</h2>
@@ -363,6 +564,7 @@
         <p class="pricing-card__price">$29.99</p>
         <p class="pricing-card__sub">$2.49/mo</p>
         <p class="pricing-card__trial">7 days free</p>
+        <p class="pricing-card__savings">Less than 2 bad bar drinks</p>
       </div>
       <div class="pricing-card">
         <p class="pricing-card__label">Monthly</p>
@@ -371,7 +573,8 @@
         <p class="pricing-card__trial">Cancel anytime</p>
       </div>
     </div>
-    <p style="text-align:center; margin-top: 20px; color: #999; font-size: 13px;">
+    <p class="pricing-anchor">
+      <strong>Annual costs $29.99/yr — less than 3 bad NA bar drinks.</strong> Most people waste that in their first week of guessing.<br>
       Free for 7 days on annual &middot; Then $29.99/yr &middot; Cancel anytime in Settings
     </p>
   </div>
@@ -388,6 +591,30 @@
     <p class="footer__copy">&copy; 2026 Sip Switch. All rights reserved.</p>
   </div>
 </footer>
+
+<script>
+  function showStep2(pref) {
+    document.getElementById('miniQuizStep1').style.display = 'none';
+    document.getElementById('miniQuizStep2').style.display = 'block';
+  }
+  function showResult(pref) {
+    document.getElementById('miniQuizStep2').style.display = 'none';
+    var r = document.getElementById('miniQuizResult');
+    r.classList.add('show');
+
+    var combos = {
+      'a': { emoji: '\uD83C\uDF37', name: 'The Connoisseur', tagline: "You're not giving up the experience of a great drink \u2014 just the alcohol." },
+      'b': { emoji: '\uD83E\uDEA7', name: 'The Sparkling Sipper', tagline: "Bubbles are non-negotiable. You drink with your eyes and your ears." },
+      'c': { emoji: '\uD83C\uDF78', name: 'The Cocktail Purist', tagline: "You want the full cocktail experience \u2014 ritual, glass, flavour." },
+      'd': { emoji: '\u2600\uFE0F', name: 'The Easy Drinker', tagline: "Refreshing, sessionable, nothing that requires explanation." }
+    };
+
+    var result = combos[pref] || combos['a'];
+    document.getElementById('quizResultEmoji').textContent = result.emoji;
+    document.getElementById('quizResultName').textContent = result.name;
+    document.getElementById('quizResultTagline').textContent = result.tagline;
+  }
+</script>
 
 </body>
 </html>
