@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sip Switch — Find the NA drink that actually hits</title>
+  <meta name="description" content="Sip Switch maps your taste to the exact non-alcoholic drinks you'll love. No more wasting money on NA drinks that disappoint. 7-day free trial.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍋</text></svg>">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #FBF9F4;
+      color: #1A1626;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 720px; }
+
+    /* Nav */
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px;
+    }
+    .nav__logo { font-size: 22px; font-weight: 800; color: #1A1626; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav__links { display: flex; gap: 24px; align-items: center; }
+    .nav__link { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav__link:hover { color: #1A1626; }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 80px 24px 60px;
+    }
+    .hero__emoji { font-size: 72px; margin-bottom: 24px; display: block; }
+    .hero__headline {
+      font-size: 42px; font-weight: 800; line-height: 1.2;
+      max-width: 700px; margin: 0 auto 16px; letter-spacing: -0.5px;
+    }
+    .hero__headline strong { color: #7B5FD4; }
+    .hero__subhead {
+      font-size: 18px; color: #555; max-width: 540px; margin: 0 auto 36px; line-height: 1.6;
+    }
+    .hero__cta {
+      display: inline-block; background: #7B5FD4; color: #fff;
+      padding: 16px 40px; border-radius: 14px; font-size: 17px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s; margin-bottom: 8px;
+    }
+    .hero__cta:hover { background: #6A4EC4; }
+    .hero__trust { font-size: 13px; color: #999; margin-top: 12px; }
+
+    /* Sections */
+    .section { padding: 80px 0; }
+    .section--alt { background: #fff; }
+    .section__label {
+      text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700;
+      color: #C9A24B; margin-bottom: 12px; text-align: center;
+    }
+    .section__title {
+      font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 16px; letter-spacing: -0.5px;
+    }
+    .section__subtitle {
+      font-size: 16px; color: #666; text-align: center; max-width: 520px; margin: 0 auto 48px; line-height: 1.6;
+    }
+
+    /* Archetypes */
+    .archetypes-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .archetype-card {
+      background: #fff; border-radius: 16px; padding: 24px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
+      text-align: center; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .archetype-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .archetype-card__emoji { font-size: 36px; margin-bottom: 12px; display: block; }
+    .archetype-card__name { font-size: 16px; font-weight: 700; color: #1A1626; margin-bottom: 8px; }
+    .archetype-card__tagline { font-size: 13px; color: #666; line-height: 1.5; }
+
+    /* Swap cards */
+    .swap-list {
+      display: flex; flex-direction: column; gap: 10px; max-width: 640px; margin: 0 auto;
+    }
+    .swap-card {
+      background: #fff; border-radius: 14px; padding: 16px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .swap-card__from {
+      display: flex; align-items: center; gap: 8px; min-width: 140px;
+    }
+    .swap-card__from-emoji { font-size: 22px; }
+    .swap-card__from-name { font-size: 14px; font-weight: 600; color: #1A1626; }
+    .swap-card__arrow { color: #C9A24B; font-size: 18px; font-weight: 700; margin: 0 4px; }
+    .swap-card__to { font-size: 15px; font-weight: 700; color: #7B5FD4; flex: 1; }
+    .swap-card__reason { font-size: 12px; color: #999; }
+
+    /* Taste meter visual */
+    .taste-showcase {
+      display: flex; gap: 40px; align-items: center; max-width: 700px; margin: 0 auto;
+    }
+    .taste-showcase__meter { flex: 1; }
+    .taste-bar-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .taste-bar-label { font-size: 12px; font-weight: 600; color: #666; width: 80px; text-align: right; }
+    .taste-bar-track { flex: 1; height: 8px; background: #EDEDE8; border-radius: 4px; overflow: hidden; }
+    .taste-bar-fill { height: 8px; border-radius: 4px; min-width: 8px; }
+    .taste-bar-fill--purple { background: #7B5FD4; }
+    .taste-bar-fill--gold { background: #C9A24B; }
+    .taste-showcase__text h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .taste-showcase__text p { font-size: 14px; color: #666; line-height: 1.6; }
+    .taste-moment-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .taste-moment-pill {
+      background: rgba(123,95,212,0.08); border: 1px solid rgba(123,95,212,0.15);
+      border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: #7B5FD4;
+    }
+
+    /* Value math */
+    .value-cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 640px; margin: 0 auto;
+    }
+    .value-card {
+      background: #fff; border-radius: 14px; padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
+      text-align: center;
+    }
+    .value-card__emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+    .value-card__text { font-size: 14px; color: #555; line-height: 1.6; }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 720px; margin: 0 auto;
+    }
+    .pricing-card {
+      background: #fff; border-radius: 14px; padding: 24px; text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04);
+      position: relative; transition: transform 0.15s;
+    }
+    .pricing-card--featured {
+      border: 2px solid #C9A24B; transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(201,162,75,0.15);
+    }
+    .pricing-card--featured:hover { transform: scale(1.04); }
+    .pricing-card__badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: #C9A24B; color: #fff; font-size: 10px; font-weight: 800;
+      padding: 4px 12px; border-radius: 6px; letter-spacing: 0.5px;
+    }
+    .pricing-card__label { font-size: 15px; font-weight: 700; color: #1A1626; margin-bottom: 4px; }
+    .pricing-card__price { font-size: 28px; font-weight: 800; color: #1A1626; margin-bottom: 4px; }
+    .pricing-card__sub { font-size: 13px; color: #666; margin-bottom: 8px; }
+    .pricing-card__trial { font-size: 12px; color: #C9A24B; font-weight: 600; }
+
+    /* Footer */
+    .footer {
+      background: #fff; padding: 40px 24px; border-top: 1px solid rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .footer__links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; }
+    .footer__link { color: #999; text-decoration: none; font-size: 13px; font-weight: 500; }
+    .footer__link:hover { color: #1A1626; }
+    .footer__copy { font-size: 12px; color: #bbb; }
+
+    @media (max-width: 768px) {
+      .hero__headline { font-size: 30px; }
+      .archetypes-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 360px; }
+      .pricing-card--featured { transform: none; }
+      .taste-showcase { flex-direction: column; }
+      .value-cards { grid-template-columns: 1fr; }
+      .swap-card { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .swap-card__from { min-width: auto; }
+    }
+    @media (max-width: 480px) {
+      .archetypes-grid { grid-template-columns: 1fr; }
+      .section { padding: 48px 0; }
+      .section__title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav container">
+  <a href="/" class="nav__logo">🍋 Sip Switch</a>
+  <div class="nav__links">
+    <a href="#how-it-works" class="nav__link">How it works</a>
+    <a href="#pricing" class="nav__link">Pricing</a>
+    <a href="/support.html" class="nav__link">Support</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero container container--narrow">
+  <span class="hero__emoji">🍋</span>
+  <h1 class="hero__headline">
+    You've probably ordered a sparkling water at the bar and <strong>felt completely left out</strong> — after wasting money on NA drinks that never hit.
+  </h1>
+  <p class="hero__subhead">
+    Sip Switch maps your taste to the exact non-alcoholic drinks that actually hit. 5 minutes. No more soda water.
+  </p>
+  <a href="APP_STORE_URL_PLACEHOLDER" class="hero__cta">Download Free →</a>
+  <p class="hero__trust">Free to start &middot; 7-day trial included</p>
+</section>
+
+<!-- Archetypes -->
+<section class="section">
+  <div class="container">
+    <p class="section__label">Your taste, decoded</p>
+    <h2 class="section__title">Six kinds of drinker. Which one are you?</h2>
+    <p class="section__subtitle">
+      Take the quiz, unlock your archetype, and get drinks matched to your taste — not a marketing budget.
+    </p>
+    <div class="archetypes-grid">
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🌿</span>
+        <h3 class="archetype-card__name">The Botanical Seeker</h3>
+        <p class="archetype-card__tagline">You want depth, bitterness, and something that feels grown-up.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🫧</span>
+        <h3 class="archetype-card__name">The Sparkling Sipper</h3>
+        <p class="archetype-card__tagline">Bubbles are non-negotiable. You drink with your eyes and your ears.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🍷</span>
+        <h3 class="archetype-card__name">The Connoisseur</h3>
+        <p class="archetype-card__tagline">You're not giving up the experience of a great drink — just the alcohol.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🧊</span>
+        <h3 class="archetype-card__name">The Minimalist</h3>
+        <p class="archetype-card__tagline">Nothing sweet, nothing fussy. Just clean and satisfying.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">🍸</span>
+        <h3 class="archetype-card__name">The Cocktail Purist</h3>
+        <p class="archetype-card__tagline">You want the full cocktail experience — the ritual, the glass, the flavour.</p>
+      </div>
+      <div class="archetype-card">
+        <span class="archetype-card__emoji">☀️</span>
+        <h3 class="archetype-card__name">The Easy Drinker</h3>
+        <p class="archetype-card__tagline">Refreshing, sessionable, nothing that requires explanation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works — Swap Engine -->
+<section class="section section--alt" id="how-it-works">
+  <div class="container">
+    <p class="section__label">The Swap Engine</p>
+    <h2 class="section__title">Every classic drink has a match that actually works</h2>
+    <p class="section__subtitle">
+      Built from real taste data — not a marketing budget. See your drink, find its NA match.
+    </p>
+    <div class="swap-list">
+      <div class="swap-card">
+        <span class="swap-card__from"><span class="swap-card__from-emoji">🍺</span><span class="swap-card__from-name">IPA</span></span>
+        <span class="swap-card__arrow">→</span>
+        <span class="swap-card__to">Athletic Brewing Run Wild IPA</span>
+        <span class="swap-card__reason">Same hop profile, zero alcohol</span>
+      </div>
+      <div class="swap-card">
+        <span class="swap-card__from"><span class="swap-card__from-emoji">🍸</span><span class="swap-card__from-name">Negroni</span></span>
+        <span class="swap-card__arrow">→</span>
+        <span class="swap-card__to">Lyre's Negroni Kit</span>
+        <span class="swap-card__reason">Bitter, complex, ritual intact</span>
+      </div>
+      <div class="swap-card">
+        <span class="swap-card__from"><span class="swap-card__from-emoji">🍷</span><span class="swap-card__from-name">Cabernet</span></span>
+        <span class="swap-card__arrow">→</span>
+        <span class="swap-card__to">Leitz Eins Zwei Zero Cabernet</span>
+        <span class="swap-card__reason">Tannins, structure, the works</span>
+      </div>
+      <div class="swap-card">
+        <span class="swap-card__from"><span class="swap-card__from-emoji">🥂</span><span class="swap-card__from-name">Prosecco</span></span>
+        <span class="swap-card__arrow">→</span>
+        <span class="swap-card__to">Surely Sparkling Ros&eacute;</span>
+        <span class="swap-card__reason">Celebratory, dry, actually good</span>
+      </div>
+      <div class="swap-card">
+        <span class="swap-card__from"><span class="swap-card__from-emoji">🍸</span><span class="swap-card__from-name">Gin &amp; Tonic</span></span>
+        <span class="swap-card__arrow">→</span>
+        <span class="swap-card__to">Monday Gin + Fever Tree Tonic</span>
+        <span class="swap-card__reason">Botanical, refreshing, identical vibe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Why — Taste Meter -->
+<section class="section">
+  <div class="container">
+    <p class="section__label">Your taste, sharpening</p>
+    <h2 class="section__title">A taste profile that learns what you actually like</h2>
+    <p class="section__subtitle">
+      Rate a few, and your matches get sharper every time. Walk into any bar knowing exactly what to order.
+    </p>
+    <div class="taste-showcase">
+      <div class="taste-showcase__meter">
+        <div class="taste-bar-row"><span class="taste-bar-label">Bitter</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--purple" style="width:82%"></div></div></div>
+        <div class="taste-bar-row"><span class="taste-bar-label">Complex</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--gold" style="width:88%"></div></div></div>
+        <div class="taste-bar-row"><span class="taste-bar-label">Carbonated</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--purple" style="width:64%"></div></div></div>
+        <div class="taste-bar-row"><span class="taste-bar-label">Bold</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--gold" style="width:76%"></div></div></div>
+        <div class="taste-bar-row"><span class="taste-bar-label">Light</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--purple" style="width:42%"></div></div></div>
+        <div class="taste-bar-row"><span class="taste-bar-label">Dry</span><div class="taste-bar-track"><div class="taste-bar-fill taste-bar-fill--gold" style="width:70%"></div></div></div>
+      </div>
+      <div class="taste-showcase__text">
+        <h3>Live — tell it your moment</h3>
+        <p>Friday night out. Post-workout. Sunday dinner. Tell Sip Switch what you're doing and get the right drink for right now.</p>
+        <div class="taste-moment-pills">
+          <span class="taste-moment-pill">🌞 Saturday lunch</span>
+          <span class="taste-moment-pill">🍷 Sunday dinner</span>
+          <span class="taste-moment-pill">🎉 Friday night out</span>
+          <span class="taste-moment-pill">😮‍💨 After work</span>
+          <span class="taste-moment-pill">☀️ Summer BBQ</span>
+          <span class="taste-moment-pill">🏃 Post-workout</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Value Math -->
+<section class="section section--alt">
+  <div class="container">
+    <p class="section__label">The math</p>
+    <h2 class="section__title">A few bad NA drinks cost more than Sip Switch</h2>
+    <p class="section__subtitle">
+      Stop gambling on drinks you'll pour down the sink.
+    </p>
+    <div class="value-cards">
+      <div class="value-card">
+        <span class="value-card__emoji">💸</span>
+        <p class="value-card__text">Premium NA drinks run $8&ndash;15 at a bar, $3&ndash;6 a can. A few disappointing ones cost more than a month of Sip Switch.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-card__emoji">⏳</span>
+        <p class="value-card__text">Skip months of trial-and-error buying NA drinks that miss &mdash; know what you'll love before you spend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+  <div class="container">
+    <p class="section__label">Pricing</p>
+    <h2 class="section__title">Start your 7-day free trial</h2>
+    <p class="section__subtitle">No charge during your trial. Cancel anytime in Settings.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-card__label">Weekly</p>
+        <p class="pricing-card__price">$1.99</p>
+        <p class="pricing-card__sub">per week</p>
+        <p class="pricing-card__trial">Try it this week</p>
+      </div>
+      <div class="pricing-card pricing-card--featured">
+        <span class="pricing-card__badge">BEST VALUE</span>
+        <p class="pricing-card__label">Annual</p>
+        <p class="pricing-card__price">$29.99</p>
+        <p class="pricing-card__sub">$2.49/mo</p>
+        <p class="pricing-card__trial">7 days free</p>
+      </div>
+      <div class="pricing-card">
+        <p class="pricing-card__label">Monthly</p>
+        <p class="pricing-card__price">$4.99</p>
+        <p class="pricing-card__sub">per month</p>
+        <p class="pricing-card__trial">Cancel anytime</p>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top: 20px; color: #999; font-size: 13px;">
+      Free for 7 days on annual &middot; Then $29.99/yr &middot; Cancel anytime in Settings
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__links">
+      <a href="/privacy.html" class="footer__link">Privacy</a>
+      <a href="/terms.html" class="footer__link">Terms</a>
+      <a href="/support.html" class="footer__link">Support</a>
+    </div>
+    <p class="footer__copy">&copy; 2026 Sip Switch. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
